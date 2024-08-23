@@ -1,5 +1,5 @@
 from app import app, db
-from models import Product, Category
+from models import User, Product, Wishlist, Favorite, CartItem, Order, Review, SupportRequest, Category
 
 def seed_data():
     # Sample categories to use for products
@@ -10,11 +10,16 @@ def seed_data():
         {'name': 'Home & Kitchen'}
     ]
     
-    # Create categories
     with app.app_context():
+        # Check existing categories
+        existing_categories = {cat.name for cat in Category.query.all()}
+        
+        # Create new categories if they do not exist
         for cat in categories:
-            category = Category(name=cat['name'])
-            db.session.add(category)
+            if cat['name'] not in existing_categories:
+                category = Category(name=cat['name'])
+                db.session.add(category)
+                existing_categories.add(cat['name'])  # Update the set of existing categories
         db.session.commit()
 
         # Fetch categories from database
