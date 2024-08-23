@@ -1,7 +1,5 @@
-from app import app, db
-from models import User, Product, Wishlist, Favorite, CartItem, Order, Review, SupportRequest, Category
-
-def seed_data():
+    from models import db, User, Product, Wishlist, Favorite, CartItem, Order, Review, SupportRequest, Category
+    def seed_data():
     # Sample categories to use for products
     categories = [
         {'name': 'Electronics'},
@@ -9,23 +7,16 @@ def seed_data():
         {'name': 'Books'},
         {'name': 'Home & Kitchen'}
     ]
-    
-    with app.app_context():
-        # Check existing categories
-        existing_categories = {cat.name for cat in Category.query.all()}
-        
-        # Create new categories if they do not exist
+
+      with app.app_context():
         for cat in categories:
-            if cat['name'] not in existing_categories:
-                category = Category(name=cat['name'])
-                db.session.add(category)
-                existing_categories.add(cat['name'])  # Update the set of existing categories
+            category = Category(name=cat['name'])
+            db.session.add(category)
         db.session.commit()
 
         # Fetch categories from database
         categories = Category.query.all()
 
-        # Sample products
         products = [
             {
                 'name': 'Smartphone',
@@ -65,10 +56,10 @@ def seed_data():
                 'price': 14.99,
                 'rating': 4.8,
                 'category_id': categories[2].id,  # Books
-                'image_url': 'https://i.pinimg.com/236x/da/1e/92/da1e92ed90ffffef2c53461d35e700a1.jpg'
+                'image_url': 'https://example.com/images/novel.jpg'
             }
         ]
-        
+
         # Create products
         for prod in products:
             product = Product(
@@ -81,8 +72,7 @@ def seed_data():
             )
             db.session.add(product)
         db.session.commit()
-        
-        print("Seed data has been added.")
 
-if __name__ == '__main__':
+        print("Seed data has been added.")
+        if __name__ == '__main__':
     seed_data()
