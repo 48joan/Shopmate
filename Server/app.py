@@ -16,7 +16,7 @@ from flask_login import LoginManager, login_required, login_user, logout_user, c
 app = Flask(__name__)
 
 # Get the DATABASE_URI from the environment variable
-database_uri = os.getenv('DATABASE_URI', 'sqlite:///data.db')
+database_uri = os.getenv('DATABASE_URI', 'postgresql://shopmate_bwbg_user:KsZRkRdSwBtbHiJ3LVSkle5v5LHA8zMg@dpg-cqoc95dsvqrc73feukd0-a.oregon-postgres.render.com/shopmate_bwbg')
 print(f'DATABASE_URI: {database_uri}')  # Debugging line to print the database URI
 
 app.config['SQLALCHEMY_DATABASE_URI'] = 'database_uri'
@@ -34,7 +34,7 @@ app.config["MAIL_USE_TLS"] = True
 app.config["MAIL_USE_SSL"] = False
 
 sys.path.append(os.path.abspath(os.path.dirname(__file__)))
-# postgresql://shopmate_bwbg_user:KsZRkRdSwBtbHiJ3LVSkle5v5LHA8zMg@dpg-cqoc95dsvqrc73feukd0-a.oregon-postgres.render.com/shopmate_bwbg
+
 
 
 db.init_app(app)

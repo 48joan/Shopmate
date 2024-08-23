@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import Product from './Product';
 import Marketing from '../Components/Marketing';
-import Heading from '../Components/Heading';
+
 
 function SectionBelowHeader() {
   const images = [
@@ -38,7 +38,7 @@ function SectionBelowHeader() {
   }, [images.length]);
 
   useEffect(() => {
-    fetch('https://localhost:5555/products')
+    fetch('https://shopmate-sbxu.onrender.com')
       .then((response) => response.json())
       .then((data) => setData(data));
   }, []);

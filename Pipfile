@@ -12,6 +12,9 @@ flask-mail = "*"
 flask-cors = "*"
 psycopg2-binary = "*"
 flask-bcrypt = "*"
+[packages]
+gunicorn = "*"
+
 
 [dev-packages]
 

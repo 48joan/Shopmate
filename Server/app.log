@@ -2672,3 +2672,68 @@ Traceback (most recent call last):
   File "/home/joan/.local/lib/python3.10/site-packages/flask_jwt_extended/utils.py", line 29, in get_jwt
     raise RuntimeError(
 RuntimeError: You must call `@jwt_required()` or `verify_jwt_in_request()` before using this method
+2024-08-23 01:10:00,964 - app - ERROR - Exception on /products [GET]
+Traceback (most recent call last):
+  File "/home/debbie/.local/share/virtualenvs/Shopmate-PBbTK3sK/lib/python3.10/site-packages/sqlalchemy/engine/base.py", line 1971, in _exec_single_context
+    self.dialect.do_execute(
+  File "/home/debbie/.local/share/virtualenvs/Shopmate-PBbTK3sK/lib/python3.10/site-packages/sqlalchemy/engine/default.py", line 919, in do_execute
+    cursor.execute(statement, parameters)
+psycopg2.OperationalError: server closed the connection unexpectedly
+	This probably means the server terminated abnormally
+	before or while processing the request.
+server closed the connection unexpectedly
+	This probably means the server terminated abnormally
+	before or while processing the request.
+
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/debbie/.local/share/virtualenvs/Shopmate-PBbTK3sK/lib/python3.10/site-packages/flask/app.py", line 1473, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/home/debbie/.local/share/virtualenvs/Shopmate-PBbTK3sK/lib/python3.10/site-packages/flask/app.py", line 882, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/home/debbie/.local/share/virtualenvs/Shopmate-PBbTK3sK/lib/python3.10/site-packages/flask_cors/extension.py", line 178, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+  File "/home/debbie/.local/share/virtualenvs/Shopmate-PBbTK3sK/lib/python3.10/site-packages/flask/app.py", line 880, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/home/debbie/.local/share/virtualenvs/Shopmate-PBbTK3sK/lib/python3.10/site-packages/flask/app.py", line 865, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+  File "/home/debbie/project/Shopmate/Server/app.py", line 254, in get_products
+    products_query = Product.query.all()
+  File "/home/debbie/.local/share/virtualenvs/Shopmate-PBbTK3sK/lib/python3.10/site-packages/sqlalchemy/orm/query.py", line 2673, in all
+    return self._iter().all()  # type: ignore
+  File "/home/debbie/.local/share/virtualenvs/Shopmate-PBbTK3sK/lib/python3.10/site-packages/sqlalchemy/orm/query.py", line 2827, in _iter
+    result: Union[ScalarResult[_T], Result[_T]] = self.session.execute(
+  File "/home/debbie/.local/share/virtualenvs/Shopmate-PBbTK3sK/lib/python3.10/site-packages/sqlalchemy/orm/session.py", line 2306, in execute
+    return self._execute_internal(
+  File "/home/debbie/.local/share/virtualenvs/Shopmate-PBbTK3sK/lib/python3.10/site-packages/sqlalchemy/orm/session.py", line 2191, in _execute_internal
+    result: Result[Any] = compile_state_cls.orm_execute_statement(
+  File "/home/debbie/.local/share/virtualenvs/Shopmate-PBbTK3sK/lib/python3.10/site-packages/sqlalchemy/orm/context.py", line 293, in orm_execute_statement
+    result = conn.execute(
+  File "/home/debbie/.local/share/virtualenvs/Shopmate-PBbTK3sK/lib/python3.10/site-packages/sqlalchemy/engine/base.py", line 1422, in execute
+    return meth(
+  File "/home/debbie/.local/share/virtualenvs/Shopmate-PBbTK3sK/lib/python3.10/site-packages/sqlalchemy/sql/elements.py", line 514, in _execute_on_connection
+    return connection._execute_clauseelement(
+  File "/home/debbie/.local/share/virtualenvs/Shopmate-PBbTK3sK/lib/python3.10/site-packages/sqlalchemy/engine/base.py", line 1644, in _execute_clauseelement
+    ret = self._execute_context(
+  File "/home/debbie/.local/share/virtualenvs/Shopmate-PBbTK3sK/lib/python3.10/site-packages/sqlalchemy/engine/base.py", line 1850, in _execute_context
+    return self._exec_single_context(
+  File "/home/debbie/.local/share/virtualenvs/Shopmate-PBbTK3sK/lib/python3.10/site-packages/sqlalchemy/engine/base.py", line 1990, in _exec_single_context
+    self._handle_dbapi_exception(
+  File "/home/debbie/.local/share/virtualenvs/Shopmate-PBbTK3sK/lib/python3.10/site-packages/sqlalchemy/engine/base.py", line 2357, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "/home/debbie/.local/share/virtualenvs/Shopmate-PBbTK3sK/lib/python3.10/site-packages/sqlalchemy/engine/base.py", line 1971, in _exec_single_context
+    self.dialect.do_execute(
+  File "/home/debbie/.local/share/virtualenvs/Shopmate-PBbTK3sK/lib/python3.10/site-packages/sqlalchemy/engine/default.py", line 919, in do_execute
+    cursor.execute(statement, parameters)
+sqlalchemy.exc.OperationalError: (psycopg2.OperationalError) server closed the connection unexpectedly
+	This probably means the server terminated abnormally
+	before or while processing the request.
+server closed the connection unexpectedly
+	This probably means the server terminated abnormally
+	before or while processing the request.
+
+[SQL: SELECT product.id AS product_id, product.name AS product_name, product.description AS product_description, product.price AS product_price, product.created_at AS product_created_at, product.category_id AS product_category_id, product.image_url AS product_image_url, product.rating AS product_rating 
+FROM product]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)

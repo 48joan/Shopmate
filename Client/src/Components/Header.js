@@ -21,9 +21,9 @@ function Header() {
     const auth = async () => {
         if (user) {
             try {
-                await axios.post('http://127.0.0.1:5555//login');
+                await axios.post('https://shopmate-sbxu.onrender.com/logout'); // Replace with your logout endpoint
                 dispatch({
-                    type: 'SET_USER',
+                    type: actionTypes.SET_USER,
                     user: null,
                 });
             } catch (error) {
@@ -71,24 +71,45 @@ function Header() {
             {/* Nav links */}
             <div className="flex items-center space-x-4">
                 <div className="relative" onMouseLeave={toggleDropdown}>
-                    <div className="flex items-center space-x-1 cursor-pointer">
+                    <div className="flex items-center space-x-1 cursor-pointer" onMouseEnter={toggleDropdown}>
                         <AccountCircleOutlinedIcon />
                         <span className="text-gray-700">Account</span>
                     </div>
                     {dropdownVisible && (
                         <div className="absolute right-0 mt-2 w-48 bg-white border border-gray-200 shadow-lg rounded-md">
-                            <Link to="/login">
-                                <div className="px-4 py-2 text-sm hover:bg-gray-100">Sign In</div>
-                            </Link>
-                            <Link to="/profile">
-                                <div className="px-4 py-2 text-sm hover:bg-gray-100">My Account</div>
-                            </Link>
-                            <Link to="/orders">
-                                <div className="px-4 py-2 text-sm hover:bg-gray-100">Orders</div>
-                            </Link>
-                            <Link to="/saveditems">
-                                <div className="px-4 py-2 text-sm hover:bg-gray-100">Saved Items</div>
-                            </Link>
+                            {user ? (
+                                <>
+                                    <Link to="/profile">
+                                        <div className="px-4 py-2 text-sm hover:bg-gray-100">My Account</div>
+                                    </Link>
+                                    <Link to="/orders">
+                                        <div className="px-4 py-2 text-sm hover:bg-gray-100">Orders</div>
+                                    </Link>
+                                    <Link to="/saveditems">
+                                        <div className="px-4 py-2 text-sm hover:bg-gray-100">Saved Items</div>
+                                    </Link>
+                                    {user.isAdmin && (
+                                        <Link to="/admin">
+                                            <div className="px-4 py-2 text-sm hover:bg-gray-100">Admin</div>
+                                        </Link>
+                                    )}
+                                    <div
+                                        className="px-4 py-2 text-sm hover:bg-gray-100 cursor-pointer"
+                                        onClick={auth}
+                                    >
+                                        Logout
+                                    </div>
+                                </>
+                            ) : (
+                                <>
+                                    <Link to="/login">
+                                        <div className="px-4 py-2 text-sm hover:bg-gray-100">Sign In</div>
+                                    </Link>
+                                    <Link to="/register">
+                                        <div className="px-4 py-2 text-sm hover:bg-gray-100">Register</div>
+                                    </Link>
+                                </>
+                            )}
                         </div>
                     )}
                 </div>
@@ -97,7 +118,7 @@ function Header() {
                     <HelpOutlineIcon />
                     <span>Help</span>
                 </Link>
-                <Link to="/Checkout" className='flex items-center space-x-1 text-gray-700'>
+                <Link to="/checkout" className='flex items-center space-x-1 text-gray-700'>
                     <ShoppingCartIcon />
                     <span>{basket?.length}</span>
                 </Link>

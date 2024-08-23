@@ -60,7 +60,7 @@ def seed_data():
                 'price': 14.99,
                 'rating': 4.8,
                 'category_id': categories[2].id,  # Books
-                'image_url': 'https://example.com/images/novel.jpg'
+                'image_url': 'https://i.pinimg.com/236x/da/1e/92/da1e92ed90ffffef2c53461d35e700a1.jpg'
             }
         ]
         

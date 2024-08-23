@@ -1,7 +1,7 @@
-////////const API_URL = 'https://localhost:5555';
+/////const API_URL = 'https://shopmate-sbxu.onrender.com';
 
 export const login = async (data) => {
-  const response = await fetch(`/login`, {
+  const response = await fetch(`https://shopmate-sbxu.onrender.com/login`, {
     method: 'POST',
     headers: {
           'Content-Type': 'application/json',
@@ -28,7 +28,7 @@ export const login = async (data) => {
 };
 
   export const register = async (data) => {
-    const response = await fetch(`/register`, {
+    const response = await fetch(`https://shopmate-sbxu.onrender.com/register`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -43,12 +43,14 @@ export const login = async (data) => {
     return response.json();
   };
   
+  // const [data, setData]= useState([])
+
   export const fetchProducts = async () => {
-    const response = await fetch(`/products`);
+    const response = await fetch(`https://shopmate-sbxu.onrender.com/products`);
     if (!response.ok) {
       throw new Error('Failed to fetch products');
     }
-    return response.json();
+    console.log (response.json());
   };
   
   export async function filterProducts({ category, minPrice, maxPrice, sortBy, page, perPage }) {
@@ -61,7 +63,7 @@ export const login = async (data) => {
         per_page: perPage
     }).toString();
 
-    const response = await fetch(`/products?${queryParams}`);
+    const response = await fetch(`https://shopmate-sbxu.onrender.com/products?${queryParams}`);
     if (!response.ok) {
         throw new Error('Failed to fetch products');
     }
@@ -69,7 +71,7 @@ export const login = async (data) => {
 }
 
 export async function fetchProduct(productId) {
-    const response = await fetch(`/products/${productId}`);
+    const response = await fetch(`https://shopmate-sbxu.onrender.com/products/${productId}`);
     if (!response.ok) {
         throw new Error('Failed to fetch product details');
     }
@@ -77,7 +79,7 @@ export async function fetchProduct(productId) {
 }
 
 export const fetchCartItems = async () => {
-  const response = await fetch('/cart');
+  const response = await fetch('https://shopmate-sbxu.onrender.com/cart');
   return await response.json();
 };
 
@@ -88,7 +90,7 @@ export const addToCart = async (productId, quantity) => {
     throw new Error('No token found, please log in again');
   }
 
-  const response = await fetch(`/cart`, {
+  const response = await fetch(`https://shopmate-sbxu.onrender.com/cart`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -105,16 +107,16 @@ export const addToCart = async (productId, quantity) => {
 };
 
 export const removeFromCart = async (id) => {
-  await fetch(`/cart/${id}`, { method: 'DELETE' });
+  await fetch(`https://shopmate-sbxu.onrender.com/cart/${id}`, { method: 'DELETE' });
 };
 
 export const clearCart = async () => {
-  await fetch('/cart', { method: 'DELETE' });
+  await fetch('https://shopmate-sbxu.onrender.com/cart', { method: 'DELETE' });
 };
 
 
   export const fetchOrderHistory = async () => {
-    const response = await fetch(`/orders`, {
+    const response = await fetch(`https://shopmate-sbxu.onrender.com/orders`, {
       headers: {
         'Authorization': `Bearer ${localStorage.getItem('token')}`,
       },
@@ -126,7 +128,7 @@ export const clearCart = async () => {
   };
   
   export const fetchUserProfile = async () => {
-    const response = await fetch(`/profile`, {
+    const response = await fetch(`https://shopmate-sbxu.onrender.com/profile`, {
       headers: {
         'Authorization': `Bearer ${localStorage.getItem('token')}`,
       },
@@ -138,7 +140,7 @@ export const clearCart = async () => {
   };
   
   export const updateUserProfile = async (data) => {
-    const response = await fetch(`/profile`, {
+    const response = await fetch(`https://shopmate-sbxu.onrender.com/profile`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
@@ -153,7 +155,7 @@ export const clearCart = async () => {
   };
   
   export const submitSupportRequest = async (data) => {
-    const response = await fetch(`/support`, {
+    const response = await fetch(`https://shopmate-sbxu.onrender.com/support`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
