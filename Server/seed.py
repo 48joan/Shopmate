@@ -1,5 +1,7 @@
-    from models import db, User, Product, Wishlist, Favorite, CartItem, Order, Review, SupportRequest, Category
-    def seed_data():
+from app import app, db
+from models import User, Product, Wishlist, Favorite, CartItem, Order, Review, SupportRequest, Category
+
+def seed_data():
     # Sample categories to use for products
     categories = [
         {'name': 'Electronics'},
@@ -7,11 +9,16 @@
         {'name': 'Books'},
         {'name': 'Home & Kitchen'}
     ]
-
-      with app.app_context():
+    
+    with app.app_context():
+        # Create categories if they don't already exist
+        existing_categories = {cat.name for cat in Category.query.all()}
+        
         for cat in categories:
-            category = Category(name=cat['name'])
-            db.session.add(category)
+            if cat['name'] not in existing_categories:
+                category = Category(name=cat['name'])
+                db.session.add(category)
+                existing_categories.add(cat['name'])  # Update the set of existing categories
         db.session.commit()
 
         # Fetch categories from database
@@ -74,5 +81,6 @@
         db.session.commit()
 
         print("Seed data has been added.")
-        if __name__ == '__main__':
+
+if __name__ == '__main__':
     seed_data()
