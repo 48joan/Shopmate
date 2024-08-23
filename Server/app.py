@@ -7,7 +7,7 @@ from functools import wraps
 from flask import Flask, Blueprint, request, jsonify, session
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
-from flask_jwt_extended import JWTManager, create_access_token, get_jwt_identity, jwt_required, verify_jwt_in_request
+from flask_jwt_extended import JWTManager, create_access_token, get_jwt_identity, jwt_required as jwt_required_func, verify_jwt_in_request
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_cors import CORS
 from flask_mail import Mail, Message
@@ -79,7 +79,7 @@ def index():
 def protected_route():
     return jsonify(msg="You have access!")
 
-def admin_required(fn):    
+def admin_required(fn):
     @wraps(fn)
     @jwt_required
     def wrapper(*args, **kwargs):
@@ -201,7 +201,7 @@ def monitor_system():
 # Products Blueprint
 product_bp = Blueprint('products_bp', __name__)
 
-@app.route('/products', methods=['POST'])
+@product_bp.route('', methods=['POST'])
 @jwt_required
 def create_product():
     data = request.get_json()
@@ -228,7 +228,7 @@ def create_product():
     
     return jsonify({"message": "Product created successfully!"}), 201
 
-@app.route('/products', methods=['GET'])
+@product_bp.route('', methods=['GET'])
 def get_products():
     products_query = Product.query.all()
     products = [{
@@ -245,7 +245,7 @@ def get_products():
         'total_products': len(products)
     })
 
-@app.route('/products/<int:id>', methods=['GET'])
+@product_bp.route('/<int:id>', methods=['GET'])
 def get_product_details(id):
     product = Product.query.get_or_404(id)
     reviews = [{
@@ -263,7 +263,7 @@ def get_product_details(id):
         'average_rating': sum(review['rating'] for review in reviews) / len(reviews) if reviews else None
     })
 
-@app.route('/products/<int:id>', methods=['PUT'])
+@product_bp.route('/<int:id>', methods=['PUT'])
 @jwt_required
 def update_product(id):
     data = request.get_json()
@@ -279,7 +279,7 @@ def update_product(id):
     db.session.commit()
     return jsonify({"message": "Product updated successfully!"})
 
-@app.route('/products/<int:id>', methods=['DELETE'])
+@product_bp.route('/<int:id>', methods=['DELETE'])
 @jwt_required
 def delete_product(id):
     product = Product.query.get_or_404(id)
@@ -355,4 +355,4 @@ app.register_blueprint(logging_bp, url_prefix='/logging')
 app.register_blueprint(product_bp, url_prefix='/products')
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(host='0.0.0.0', port=int(os.getenv('PORT', 5000)), debug=False)
