@@ -1,0 +1,6 @@
+services:
+  - type: web
+    name: shopmate
+    env: python
+    buildCommand: pip install -r requirements.txt
+    startCommand: python Server/manage.py reset_db && flask --app Server.app db upgrade && python Server/seed.py && gunicorn Server.app:app
